@@ -5,6 +5,6 @@ export function addLights(scene) {
   scene.add(ambientLight);
 
   const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-  directionalLight.position.set(0, 10, 10);
+  directionalLight.position.set(0, 0, 0);
   scene.add(directionalLight);
 }
