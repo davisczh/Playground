@@ -8,7 +8,10 @@ import { addRoom } from './geometry.js';
 import { initialiseModel} from './InitialiseModel.js';
 
 
-
+const sizes = {
+  width : window.innerWidth,
+  height : window.innerHeight,
+}
 const wallTextureUrl = "/AdobeStock_125450626_Preview.jpg"; // Replace with the actual path to your texture file
 const ceilingTextureUrl = "/ceiling.jpg"
 const couchURL = "/couch.obj"
@@ -20,8 +23,8 @@ const roomHeight = 3;
 const roomDepth = 7;
 
 const scene = createScene();
-const camera = createCamera(roomHeight, roomDepth);
-const renderer = createRenderer();
+const camera = createCamera(sizesroomHeight, roomDepth);
+const renderer = createRenderer(sizes);
 document.body.appendChild(renderer.domElement);
 const controls = createControls(camera, renderer);
 
@@ -36,12 +39,19 @@ addLights(scene);
 addRoom(scene, roomWidth, roomHeight, roomDepth, wallTextureUrl, ceilingTextureUrl, roomBounds);
 // initialiseModel(couchURL, scene, camera, renderer, roomBounds, controls);
 
-
+window.addEventListener('resize', () => {
+  sizes.width = window.innerWidth; 
+  sizes.height = window.innerHeight;
+  camera.aspect = sizes.width / sizes.height;
+  camera.updateProjectionMatrix();
+  renderer.setSize(sizes.width, sizes.height);
+})
 
 function animate() {
-  requestAnimationFrame(animate);
+  
   controls.update(); // Only required if controls.enableDamping or controls.autoRotate are set to true
   renderer.render(scene, camera);
+  requestAnimationFrame(animate);
 }
 
 animate();
