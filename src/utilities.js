@@ -22,3 +22,5 @@ export var onAfterRender = function( renderer, scene, camera, geometry, material
     geometry.setDrawRange( 0, Infinity );
 
 };
+
+

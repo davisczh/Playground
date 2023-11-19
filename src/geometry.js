@@ -20,7 +20,6 @@ function createWall(scene, width, height, depth, position, rotation, textureUrl)
     const wall = new THREE.Mesh(geometry, materials);
     wall.position.set(position.x, position.y, position.z);
     wall.rotation.set(rotation.x, rotation.y, rotation.z);
-    scene.add(wall);
   
     // Calculate the direction towards the origin (0,0,0)
     const directionToOrigin = new THREE.Vector3().subVectors(new THREE.Vector3(0, 0, 0), wall.position).normalize();
@@ -60,8 +59,7 @@ function createWall(scene, width, height, depth, position, rotation, textureUrl)
     const wall = new THREE.Mesh(geometry, materials);
     wall.position.set(position.x, position.y, position.z);
     wall.rotation.set(rotation.x, rotation.y, rotation.z);
-    scene.add(wall);
-  
+   
     // Calculate the direction towards the origin (0,0,0)
     const directionToOrigin = new THREE.Vector3().subVectors(new THREE.Vector3(0, 0, 0), wall.position).normalize();
     // Set the calculated direction as the normal
@@ -99,7 +97,6 @@ function createWall(scene, width, height, depth, position, rotation, textureUrl)
     const wall = new THREE.Mesh(geometry, materials);
     wall.position.set(position.x, position.y, position.z);
     wall.rotation.set(rotation.x, rotation.y, rotation.z);
-    scene.add(wall);
   
     // Calculate the direction towards the origin (0,0,0)
     const directionToOrigin = new THREE.Vector3().subVectors(new THREE.Vector3(0, 0, 0), wall.position).normalize();
@@ -126,13 +123,18 @@ export function addRoom(scene, roomWidth, roomHeight, roomDepth, textureUrl, cei
     
   const wallThickness = 0.15; // for example, 0.1 meters thick
 
-  createWall(scene, roomWidth, roomHeight, wallThickness, { x: 0, y: 0, z: roomDepth / 2 - wallThickness / 2 }, { x: 0, y:2*Math.PI, z:0 }, textureUrl); // Front wall
-  createWall(scene, roomWidth, roomHeight, wallThickness, { x: 0, y: 0, z: -roomDepth / 2 + wallThickness / 2 }, { x: 0, y: -Math.PI, z: 0 }, textureUrl); // Back wall
-  createWall(scene, roomDepth, roomHeight, wallThickness, { x: -roomWidth / 2 + wallThickness / 2, y: 0, z: 0 }, { x: 0, y: Math.PI/2, z: 0 }, textureUrl); // Left wall
-  createWall(scene, roomDepth, roomHeight, wallThickness, { x: roomWidth / 2 - wallThickness / 2, y: 0, z: 0 }, { x: 0, y: -Math.PI/2, z: 0 }, textureUrl); // Right wall
-
-
-  createCeiling(scene, roomWidth, wallThickness, roomDepth, { x: 0, y: roomHeight/2+ wallThickness/2, z: 0 }, { x: Math.PI, y: 0, z:  2*Math.PI},ceilingTextureUrl); // ceiling
-  createFloor(scene, roomWidth, wallThickness, roomDepth, { x: 0, y: -roomHeight/2- wallThickness/2, z: 0 }, { x: Math.PI, y: 0, z:  2*Math.PI},ceilingTextureUrl); // floor
-  
+  const walls = [createWall(scene, roomWidth, roomHeight, wallThickness, { x: 0, y: 0, z: roomDepth / 2 - wallThickness / 2 }, { x: 0, y:2*Math.PI, z:0 }, textureUrl), // Front wall
+  createWall(scene, roomWidth, roomHeight, wallThickness, { x: 0, y: 0, z: -roomDepth / 2 + wallThickness / 2 }, { x: 0, y: -Math.PI, z: 0 }, textureUrl), // Back wall
+  createWall(scene, roomDepth, roomHeight, wallThickness, { x: -roomWidth / 2 + wallThickness / 2, y: 0, z: 0 }, { x: 0, y: Math.PI/2, z: 0 }, textureUrl), // Left wall
+  createWall(scene, roomDepth, roomHeight, wallThickness, { x: roomWidth / 2 - wallThickness / 2, y: 0, z: 0 }, { x: 0, y: -Math.PI/2, z: 0 }, textureUrl), // Right wall
+  createCeiling(scene, roomWidth, wallThickness, roomDepth, { x: 0, y: roomHeight/2+ wallThickness/2, z: 0 }, { x: Math.PI, y: 0, z:  2*Math.PI},ceilingTextureUrl), // ceiling
+  createFloor(scene, roomWidth, wallThickness, roomDepth, { x: 0, y: -roomHeight/2- wallThickness/2, z: 0 }, { x: Math.PI, y: 0, z:  2*Math.PI},ceilingTextureUrl), // floor
+ 
+]
+  const roomGroup = new THREE.Group();
+  walls.forEach(wall => {
+    roomGroup.add(wall);
+  });
+  scene.add(roomGroup);
+  return roomGroup;
     }
