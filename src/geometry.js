@@ -124,7 +124,7 @@ function createWall(scene, width, height, depth, position, rotation, textureUrl)
   }
 export function addRoom(scene, roomWidth, roomHeight, roomDepth, textureUrl, ceilingTextureUrl) {
     
-const wallThickness = 0.15; // for example, 0.1 meters thick
+  const wallThickness = 0.15; // for example, 0.1 meters thick
 
   createWall(scene, roomWidth, roomHeight, wallThickness, { x: 0, y: 0, z: roomDepth / 2 - wallThickness / 2 }, { x: 0, y:2*Math.PI, z:0 }, textureUrl); // Front wall
   createWall(scene, roomWidth, roomHeight, wallThickness, { x: 0, y: 0, z: -roomDepth / 2 + wallThickness / 2 }, { x: 0, y: -Math.PI, z: 0 }, textureUrl); // Back wall

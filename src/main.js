@@ -12,17 +12,17 @@ import { initialiseModel} from './InitialiseModel.js';
 const wallTextureUrl = "/AdobeStock_125450626_Preview.jpg"; // Replace with the actual path to your texture file
 const ceilingTextureUrl = "/ceiling.jpg"
 const couchURL = "/couch.obj"
+
+
 // Define the dimensions of the room
 const roomWidth = 4;
 const roomHeight = 3;
 const roomDepth = 7;
 
 const scene = createScene();
-const camera = createCamera();
-camera.position.set(0, roomHeight, roomDepth * 1.5);
+const camera = createCamera(roomHeight, roomDepth);
 const renderer = createRenderer();
 document.body.appendChild(renderer.domElement);
-
 const controls = createControls(camera, renderer);
 
 
