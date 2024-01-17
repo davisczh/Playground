@@ -36,7 +36,7 @@ function createWall(scene, width, height, depth, position, rotation, textureUrl)
       arrowColor
     );
   
-    scene.add(arrowHelper);
+    // scene.add(arrowHelper);
   
     wall.onBeforeRender = onBeforeRender;
     wall.onAfterRender = onAfterRender;
@@ -75,7 +75,7 @@ function createWall(scene, width, height, depth, position, rotation, textureUrl)
       arrowColor
     );
   
-    scene.add(arrowHelper);
+    // scene.add(arrowHelper);
   
     wall.onBeforeRender = onBeforeRender;
     wall.onAfterRender = onAfterRender;
@@ -113,7 +113,7 @@ function createWall(scene, width, height, depth, position, rotation, textureUrl)
       arrowColor
     );
   
-    scene.add(arrowHelper);
+    // scene.add(arrowHelper);
   
     wall.onBeforeRender = onBeforeRender;
     wall.onAfterRender = onAfterRender;

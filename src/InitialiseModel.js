@@ -23,7 +23,7 @@ export function initialiseModel(couchURL, scene, camera, renderer, roomBounds, c
     });
     dragControls.addEventListener('drag', onDrag); // Listen to drag events
 
-    model.userData.previousPosition = model.position.clone(); // Initialize previous position
+    model.userData.previousPosition = robot.position.clone(); // Initialize previous position
 
   });
 
@@ -87,4 +87,50 @@ function updateBoundingBox(object) {
   scene.add(boundingBoxHelper);
 }
 
+}
+
+export let mixer;
+export let robot;
+export let robotModel;
+
+export function initialiseModelrobot(robotURL, scene, camera, renderer, roomBounds, controls) {
+  let selectedObject = null;
+  let boundingBoxHelper = null;
+
+  let clock = new THREE.Clock(); // Clock to manage animations
+
+  loadModel(robotURL, (model) => {
+    // model.scale.set(0.001, 0.001, 0.001); // Scale the model if needed
+    robotModel = model
+    robot = model.scene;
+    scene.add(robot);
+
+    // Assuming the robot model has animations
+    mixer = new THREE.AnimationMixer(robot);
+
+    // console.log(model.animations)
+    // const walkAction = mixer.clipAction(model.animations[0]); // Replace with the correct index for walking animation
+    // walkAction.play();
+
+    robot.position.set(0,  roomBounds.min.y,0); // Set the initial position of the robot
+
+    robot.previousPosition = robot.position.clone(); // Initialize previous position
+
+ 
+  });
+ 
+  // Collision detection function
+
+}
+export function checkCollision(object, roomBounds) {
+   
+  const boundingBox = new THREE.Box3().setFromObject(object);
+
+  // Check for collision with room bounds
+  if (boundingBox.min.x < roomBounds.min.x || boundingBox.max.x > roomBounds.max.x ||
+      boundingBox.min.y < roomBounds.min.y || boundingBox.max.y > roomBounds.max.y ||
+      boundingBox.min.z < roomBounds.min.z || boundingBox.max.z > roomBounds.max.z) {
+    return true; // Collision occurred
+  }
+  return false; // No collision
 }
