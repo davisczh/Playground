@@ -3,10 +3,12 @@ import * as THREE from 'three';
 import { loadModel } from './modelLoader.js';
 
 
-export function initialiseModel(couchURL, scene, camera, renderer, roomBounds, controls) {
+export async function initialiseModel(couchURL, scene, camera, renderer, roomBounds, controls) {
   let selectedObject = null;
   let boundingBoxHelper = null;
-  loadModel(couchURL, (model) => {
+  try {
+    const model = await loadModel(couchURL);
+  // loadModel(couchURL, (model) => {
     model.scale.set(0.001, 0.001, 0.001); // Scale if needed
     scene.add(model);
 
@@ -24,8 +26,11 @@ export function initialiseModel(couchURL, scene, camera, renderer, roomBounds, c
     dragControls.addEventListener('drag', onDrag); // Listen to drag events
 
     model.userData.previousPosition = robot.position.clone(); // Initialize previous position
+} catch (error) {
+  console.error('An error occurred while loading the model:', error);
+}
 
-  });
+  // });
 
 
   // Collision detection function
@@ -93,13 +98,14 @@ export let mixer;
 export let robot;
 export let robotModel;
 
-export function initialiseModelrobot(robotURL, scene, camera, renderer, roomBounds, controls) {
+export async function initialiseModelrobot(robotURL, scene, camera, renderer, roomBounds, controls) {
   let selectedObject = null;
   let boundingBoxHelper = null;
 
   let clock = new THREE.Clock(); // Clock to manage animations
-
-  loadModel(robotURL, (model) => {
+try {
+    const model = await loadModel(robotURL);
+  // await loadModel(robotURL, (model) => {
     // model.scale.set(0.001, 0.001, 0.001); // Scale the model if needed
     robotModel = model
     robot = model.scene;
@@ -116,8 +122,10 @@ export function initialiseModelrobot(robotURL, scene, camera, renderer, roomBoun
 
     robot.previousPosition = robot.position.clone(); // Initialize previous position
 
- 
-  });
+} catch (error) {
+  console.error('An error occurred while loading the model:', error);
+}
+  // });
  
   // Collision detection function
 

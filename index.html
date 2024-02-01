@@ -13,10 +13,75 @@
         left: 0;
         z-index: 100;
       }
+      .button-container {
+        position: absolute;
+        top: 50%; /* Middle of the page vertically */
+        left: 0; /* Left side of the page */
+        transform: translateY(-50%); /* Adjust for exact center alignment */
+      }
+      #toggleChat {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: #6200ea; /* Material Design primary color */
+        border: none;
+        border-radius: 50%;
+        color: white;
+        width: 30px;
+        height: 30px;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      }
+      #chatbox {
+        position: absolute;
+        right: 10px; /* Spacing from right */
+        bottom: 10px; /* Spacing from bottom */
+        width: 300px; /* Adjust width as needed */
+        height: 400px; /* Adjust height as needed */
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 0 7px 13px rgba(0, 0, 0, 0.2);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden; /* To respect border radius */
+      }
+
+      #messages {
+        flex-grow: 1;
+        overflow-y: auto;
+        padding: 10px;
+      }
+
+      #chatInput {
+        padding: 10px;
+        border: none;
+        border-top: 1px solid #eee;
+        outline: none;
+        font-size: 16px;
+      }
+
+      #chatInput:focus {
+        border-top-color: #6200ea; /* Material Design primary color */
+      }
     </style>
   </head>
   <body>
     <canvas id="canvas"></canvas>
     <script type="module" src="/src/main.js"></script>
+    <div class="button-container">
+      <button id="myButton">Click Me!</button>
+    </div>
+  </body>
+  <body>
+    <canvas id="canvas"></canvas>
+    <div id="chatbox">
+      <button id="toggleChat">-</button>
+      <div id="messages"></div>
+      <form id="chatForm">
+        <input type="text" id="chatInput" placeholder="Type a message..." />
+      </form>
+    </div>
+    <script type="module" src="/src/chatbox.js"></script>
   </body>
 </html>

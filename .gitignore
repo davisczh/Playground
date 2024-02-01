@@ -1,3 +1,6 @@
 node_modules
 public/couch.obj
 public/robot.gltf
+src/utils/.env
+package-lock.json
+package.json
